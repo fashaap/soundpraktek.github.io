@@ -1,0 +1,392 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Soundboard Mixer</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        color: #ffffff;
+        font-family: "Roboto", sans-serif;
+      }
+
+      h1 {
+        color: #00d9ff;
+        font-weight: bold;
+        text-shadow: 0 4px 6px rgba(0, 217, 255, 0.7);
+      }
+
+      p {
+        color: #c5c6c7;
+      }
+
+      .card {
+        background-color: #1f4068;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.7);
+      }
+
+      .card-title {
+        background: linear-gradient(135deg, #16213e, #1f4068);
+        color: #00d9ff;
+        text-align: center;
+        padding: 10px;
+        border-radius: 5px;
+        font-weight: bold;
+        text-shadow: 0 2px 4px rgba(0, 217, 255, 0.5);
+      }
+
+      .btn-success {
+        background-color: #17e3b2;
+        color: #000000;
+        border: none;
+        font-weight: bold;
+      }
+
+      .btn-success:hover {
+        background-color: #14d8a8;
+      }
+
+      .btn-danger {
+        background-color: #ff5c5c;
+        color: #000000;
+        border: none;
+        font-weight: bold;
+      }
+
+      .btn-danger:hover {
+        background-color: #ff3f3f;
+      }
+
+      .form-label {
+        font-weight: bold;
+        color: #c5c6c7;
+      }
+
+      .form-range {
+        background-color: #16213e;
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      input[type="range"]::-webkit-slider-thumb {
+        background-color: #17e3b2;
+        border: none;
+      }
+
+      input[type="range"]::-moz-range-thumb {
+        background-color: #17e3b2;
+        border: none;
+      }
+
+      input[type="range"]::-ms-thumb {
+        background-color: #17e3b2;
+        border: none;
+      }
+
+      .volume-value {
+        color: #17e3b2;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container py-5">
+      <h1 class="text-center mb-4">Soundboard Mixer</h1>
+      <p class="text-center">
+        Enjoy seamless control of sound playback, volume, and timer in a modern
+        dark-themed interface.
+      </p>
+
+      <div class="row" id="soundboard-container">
+        <!-- Sound Cards Will Be Rendered Here -->
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const sounds = [
+        {
+          id: 1,
+          title: "Sound 1",
+          title2: "intro narator",
+          src: "./music/1_intro narator.mp3",
+        },
+        {
+          id: 2,
+          title: "Sound 2",
+          title2: "tarian bidadari kebo giro",
+          src: "./music/2_tarian bidadari_kebo giro0mp3.mp3",
+        },
+        {
+          id: 3,
+          title: "Sound 3",
+          title2: "BS Dadong Dauh v1",
+          src: "./music/3_backsound_Dadong Dauh_versi 1.mp3",
+        },
+        {
+          id: 4,
+          title: "Sound 4",
+          title2: "Tarian Ki Ageng",
+          src: "./music/4_tarian Ki Ageng_manten.mp3",
+        },
+        {
+          id: 5,
+          title: "Sound 5",
+          title2: "BS Dadong Dauh v2",
+          src: "./music/5_backsound_Dadong Dauh_versi 2.mp3",
+        },
+        {
+          id: 6,
+          title: "Sound 6",
+          title2: "BS rebutan jaka",
+          src: "./music/6_backsound rebutan jaka_gendhing aji saka.mp3",
+        },
+        {
+          id: 7,
+          title: "Sound 7",
+          title2: "BS Kekek ",
+          src: "./music/7_backsound_Kekek.mp3",
+        },
+        {
+          id: 8,
+          title: "Sound 8",
+          title2: "Tarian CingCiripit",
+          src: "./music/8_tarian cingciripit.mp3",
+        },
+        {
+          id: 9,
+          title: "Sound 9",
+          title2: "BS medley",
+          src: "./music/9_backsound_medley Lagu Daerah.mp3",
+        },
+        {
+          id: 10,
+          title: "Sound 10",
+          title2: "Tarian Lavenders",
+          src: "./music/10_tarian+backsound bidadari_lavenders.mp3",
+        },
+        {
+          id: 11,
+          title: "Sound 11",
+          title2: "BS Kehilangan Selendang",
+          src: "./music/11_backsound kehilangan selendang (tegang).mp3",
+        },
+        {
+          id: 12,
+          title: "Sound 12",
+          title2: "Tarian Meninggalkan NW",
+          src: "./music/12_tarian meninggalkan nawang wulan.mp3",
+        },
+        {
+          id: 13,
+          title: "Sound 13",
+          title2: "BS bertemu ibu bidadari",
+          src: "./music/13_backsound bertemu ibu bidadari.mp3",
+        },
+        {
+          id: 13,
+          title: "Sound 13",
+          title2: "BS bertemu ibu bidadari",
+          src: "./music/13_backsound bertemu ibu bidadari.mp3",
+        },
+        {
+          id: 14,
+          title: "Sound 14",
+          title2: "BS AyahIbu (bilang padaku)",
+          src: "./music/14_backsound ayah dan ibu (bilang padaku).mp3",
+        },
+        {
+          id: 15,
+          title: "Sound 15",
+          title2: "BS NW meminta tolong",
+          src: "./music/15_backsound_meminta tolong.mp3",
+        },
+        {
+          id: 16,
+          title: "Sound 16",
+          title2: "Tarian Stargazing",
+          src: "./music/16_tarian+backsound stargazing.mp3",
+        },
+        {
+          id: 17,
+          title: "Sound 17",
+          title2: "BS NW ketahuan menanak nasi",
+          src: "./music/18_backsound nawang wulan ketahuan menanak nasi.mp3",
+        },
+        {
+          id: 18,
+          title: "Sound 18",
+          title2: "BS menemukan selendang",
+          src: "./music/19_backsound menemukan selendang.mp3",
+        },
+        {
+          id: 19,
+          title: "Sound 19",
+          title2: "Ending (lalu bagaimana)",
+          src: "./music/20_ending 1 (lalu bagaimana).mp3",
+        },
+        {
+          id: 20,
+          title: "Sound 20",
+          title2: "Ending Jaka Menyesal",
+          src: "./music/21_ending 2_jaka menyesal.mp3",
+        },
+        {
+          id: 21,
+          title: "Sound 21",
+          title2: "Lagu Penutup",
+          src: "/music",
+        },
+      ];
+
+      const container = document.getElementById("soundboard-container");
+      sounds.forEach((sound) => {
+        const card = document.createElement("div");
+        card.className = "col-lg-3 col-md-4 col-sm-6 mb-4";
+
+        card.innerHTML = `
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title">${sound.title}</h3>
+        <h5 class="card-title">${sound.title2 || ""}</h5>
+        <button
+          id="playPauseButton${sound.id}"
+          class="btn btn-success w-100 mb-2"
+          onclick="playSound(${sound.id})"
+        >
+          Play
+        </button>
+
+        <button
+          class="btn btn-danger w-100 mb-3"
+          onclick="resetAudio(${sound.id})"
+        >
+          Reset Sound
+        </button>
+
+        <div class="mb-3">
+          <label class="form-label"
+            >Timer: <span id="time${sound.id}">00:00</span></label
+          >
+          <input
+            type="range"
+            class="form-range timer-slider"
+            min="0"
+            step="1"
+            value="0"
+            id="timer${sound.id}"
+            oninput="setAudioCurrentTime(${sound.id})"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Volume: <span id="volumeValue${
+            sound.id
+          }" class="volume-value">100%</span></label>
+          <input
+            type="range"
+            class="form-range"
+            min="0"
+            max="1"
+            step="0.01"
+            value="1"
+            id="volume${sound.id}"
+            oninput="setVolume(${sound.id})"
+          />
+        </div>
+
+        <audio id="sound${sound.id}" src="${sound.src}"></audio>
+      </div>
+    </div>
+  `;
+
+        container.appendChild(card);
+
+        // Setelah elemen ditambahkan, sesuaikan slider dengan durasi audio
+        const audio = document.getElementById(`sound${sound.id}`);
+        const timer = document.getElementById(`timer${sound.id}`);
+
+        audio.addEventListener("loadedmetadata", () => {
+          timer.max = Math.floor(audio.duration); // Atur max slider sesuai durasi
+        });
+      });
+
+      function playSound(id) {
+        const audio = document.getElementById(`sound${id}`);
+        const button = document.getElementById(`playPauseButton${id}`);
+        const timer = document.getElementById(`timer${id}`);
+        const timeDisplay = document.getElementById(`time${id}`);
+
+        if (audio.paused) {
+          audio.play();
+          button.innerText = "Pause";
+
+          audio.timerInterval = setInterval(() => {
+            const currentTime = Math.floor(audio.currentTime);
+            const minutes = Math.floor(currentTime / 60);
+            const seconds = currentTime % 60;
+            timeDisplay.innerText = `${minutes
+              .toString()
+              .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+            timer.value = currentTime;
+          }, 1000);
+        } else {
+          audio.pause();
+          button.innerText = "Play";
+          clearInterval(audio.timerInterval);
+        }
+      }
+
+      function resetAudio(id) {
+        const audio = document.getElementById(`sound${id}`);
+        const button = document.getElementById(`playPauseButton${id}`);
+        const timer = document.getElementById(`timer${id}`);
+        const timeDisplay = document.getElementById(`time${id}`);
+
+        audio.pause();
+        audio.currentTime = 0;
+        button.innerText = "Play";
+        timer.value = 0;
+        timeDisplay.innerText = "00:00";
+        clearInterval(audio.timerInterval);
+      }
+
+      function setVolume(id) {
+        const audio = document.getElementById(`sound${id}`);
+        const volume = document.getElementById(`volume${id}`).value;
+        const volumeValue = document.getElementById(`volumeValue${id}`);
+
+        audio.volume = volume;
+        volumeValue.innerText = `${Math.round(volume * 100)}%`;
+      }
+
+      function setAudioCurrentTime(id) {
+        const audio = document.getElementById(`sound${id}`);
+        const timer = document.getElementById(`timer${id}`);
+        const timeDisplay = document.getElementById(`time${id}`);
+        const seconds = parseInt(timer.value, 10);
+
+        audio.currentTime = seconds;
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        timeDisplay.innerText = `${minutes
+          .toString()
+          .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+      }
+    </script>
+  </body>
+</html>
